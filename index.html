@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GYM TRACKER — Registro de Rendimiento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">GYM<strong>TRACKER</strong></span>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" onclick="showSection('registrar')">Registrar</button>
+                <button class="nav-btn" onclick="showSection('historial')">Historial</button>
+                <button class="nav-btn" onclick="showSection('stats')">Estadísticas</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+
+        <!-- SECCIÓN: REGISTRAR ENTRENAMIENTO -->
+        <section id="registrar" class="section active">
+            <div class="section-title">
+                <h1>NUEVO <span>ENTRENAMIENTO</span></h1>
+                <p>Registra tu sesión y supera tus límites</p>
+            </div>
+
+            <form id="formEntrenamiento" class="form-card" action="/registrar" method="POST">
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+                        <label>Fecha y Hora</label>
+                        <input type="datetime-local" name="fecha" id="fecha" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Entrenamiento</label>
+                        <select name="tipo" required>
+                            <option value="">Selecciona...</option>
+                            <option>Fuerza</option>
+                            <option>Cardio</option>
+                            <option>HIIT</option>
+                            <option>Funcional</option>
+                            <option>Yoga / Flexibilidad</option>
+                            <option>Crossfit</option>
+                            <option>Natación</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Duración (minutos)</label>
+                        <input type="number" name="duracion" placeholder="60" min="1" max="300" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ejercicio Principal</label>
+                        <input type="text" name="ejercicio" placeholder="Sentadilla, Press banca..." required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Músculo Objetivo</label>
+                        <select name="musculo">
+                            <option value="">General</option>
+                            <option>Pecho</option>
+                            <option>Espalda</option>
+                            <option>Piernas</option>
+                            <option>Hombros</option>
+                            <option>Bíceps</option>
+                            <option>Tríceps</option>
+                            <option>Abdomen</option>
+                            <option>Glúteos</option>
+                            <option>Full Body</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Series</label>
+                        <input type="number" name="series" placeholder="4" min="1" max="20" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Repeticiones</label>
+                        <input type="number" name="repeticiones" placeholder="12" min="1" max="100" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Peso Levantado (kg)</label>
+                        <input type="number" name="peso" placeholder="80" step="0.5" min="0" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Calorías Quemadas</label>
+                        <input type="number" name="calorias" placeholder="350" min="0" />
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Nivel de Esfuerzo</label>
+                        <div class="esfuerzo-selector">
+                            <input type="radio" name="esfuerzo" id="e1" value="1" /><label for="e1">1</label>
+                            <input type="radio" name="esfuerzo" id="e2" value="2" /><label for="e2">2</label>
+                            <input type="radio" name="esfuerzo" id="e3" value="3" /><label for="e3">3</label>
+                            <input type="radio" name="esfuerzo" id="e4" value="4" /><label for="e4">4</label>
+                            <input type="radio" name="esfuerzo" id="e5" value="5" checked /><label for="e5">5</label>
+                            <input type="radio" name="esfuerzo" id="e6" value="6" /><label for="e6">6</label>
+                            <input type="radio" name="esfuerzo" id="e7" value="7" /><label for="e7">7</label>
+                            <input type="radio" name="esfuerzo" id="e8" value="8" /><label for="e8">8</label>
+                            <input type="radio" name="esfuerzo" id="e9" value="9" /><label for="e9">9</label>
+                            <input type="radio" name="esfuerzo" id="e10" value="10" /><label for="e10">10</label>
+                        </div>
+                        <div class="esfuerzo-labels">
+                            <span>Fácil</span><span>Moderado</span><span>Máximo</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Notas del Entrenamiento</label>
+                        <textarea name="notas"
+                            placeholder="¿Cómo te sentiste? ¿Superaste algún récord? Anota todo lo importante..."
+                            rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <span>GUARDAR ENTRENAMIENTO</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </form>
+
+            {% if mensaje %}
+            <div class="toast {{ 'toast-ok' if 'exitosamente' in mensaje else 'toast-err' }}">
+                {{ mensaje }}
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- SECCIÓN: HISTORIAL -->
+        <section id="historial" class="section">
+            <div class="section-title">
+                <h1>HISTORIAL DE <span>SESIONES</span></h1>
+                <p>Todos tus entrenamientos registrados</p>
+            </div>
+
+            <div class="filter-bar">
+                <input type="text" id="buscar" placeholder="🔍 Buscar ejercicio o tipo..." oninput="filtrarTabla()" />
+            </div>
+
+            <div class="table-wrap">
+                <table class="tabla" id="tablaHistorial">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Ejercicio</th>
+                            <th>Músculo</th>
+                            <th>Dur.</th>
+                            <th>Series×Reps</th>
+                            <th>Peso</th>
+                            <th>Cal.</th>
+                            <th>RPE</th>
+                            <th>Notas</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in registros %}
+                        <tr>
+                            <td>{{ r.fecha }}</td>
+                            <td><span class="badge badge-{{ r.tipo.lower().replace(' / ','_').replace(' ','_') }}">{{
+                                    r.tipo }}</span>
+                            </td>
+                            <td>{{ r.ejercicio }}</td>
+                            <td>{{ r.musculo or '—' }}</td>
+                            <td>{{ r.duracion }}min</td>
+                            <td>{{ r.series or '—' }}×{{ r.repeticiones or '—' }}</td>
+                            <td>{{ r.peso or '—' }} {% if r.peso %}kg{% endif %}</td>
+                            <td>{{ r.calorias or '—' }} {% if r.calorias %}kcal{% endif %}</td>
+                            <td><span class="rpe rpe-{{ r.esfuerzo }}">{{ r.esfuerzo }}/10</span></td>
+                            <td class="notas-col">{{ r.notas or '—' }}</td>
+                            <td>
+                                <form action="/eliminar/{{ r.id }}" method="POST" style="display:inline">
+                                    <button type="submit" class="btn-delete" title="Eliminar">✕</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11" class="empty-state">Sin registros aún. ¡A entrenar! 💪</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
