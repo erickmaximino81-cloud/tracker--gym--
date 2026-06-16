@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, redirect, url_for, request
 # Importamos todas las funciones necesarias desde la carpeta correcta 'logica'
-from logica.base_datos import init_db, guardar_entrenamiento_completo, obtener_estadisticas_por_ejercicio, get_db
+from componentes_logica.base_datos import init_db, guardar_entrenamiento_completo, obtener_estadisticas_por_ejercicio, get_db
 
 # 1. Detectar la ubicación exacta del proyecto
 ruta_base = os.path.abspath(os.path.dirname(__file__))
