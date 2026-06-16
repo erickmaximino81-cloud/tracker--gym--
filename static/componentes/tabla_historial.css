@@ -1,0 +1,144 @@
+/* ── static/componentes/tabla_historial.css ───────────────── */
+
+.filter-bar {
+    margin-bottom: 20px;
+}
+
+.filter-bar input {
+    width: 100% !important;
+    max-width: 360px !important;
+    padding: 10px 14px !important;
+    background: #252525 !important;
+    border: 1px solid #2d2d2d !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+}
+
+.filter-bar input:focus {
+    outline: none !important;
+    border-color: #e1ff00 !important;
+}
+
+.table-wrap {
+    overflow-x: auto !important;
+    border-radius: 8px !important;
+    border: 1px solid #2d2d2d !important;
+    background: #1e1e1e !important;
+    /* Fondo oscuro de la tabla */
+}
+
+.tabla {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 13.5px !important;
+    color: #ffffff !important;
+    /* Texto general blanco */
+}
+
+.tabla thead tr {
+    background: #151515 !important;
+    /* Fondo del encabezado más oscuro */
+    border-bottom: 2px solid #2d2d2d !important;
+}
+
+.tabla th {
+    padding: 14px 16px !important;
+    text-align: left !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.2px !important;
+    text-transform: uppercase !important;
+    color: #e1ff00 !important;
+    /* Títulos de columnas en amarillo neón */
+    white-space: nowrap !important;
+}
+
+.tabla td {
+    padding: 13px 16px !important;
+    border-bottom: 1px solid #2d2d2d !important;
+    color: #d4d4d4 !important;
+    /* Texto de datos gris claro */
+    vertical-align: middle !important;
+    background-color: #1e1e1e !important;
+    /* Asegura fondo oscuro en cada celda */
+}
+
+/* Efecto hover interactivo en las filas */
+.tabla tbody tr:hover td {
+    background: rgba(225, 255, 0, 0.06) !important;
+    /* Destello neón muy sutil */
+    color: #ffffff !important;
+}
+
+.tabla tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.empty-state {
+    text-align: center !important;
+    padding: 48px !important;
+    color: #a0a0a0 !important;
+    font-size: 15px !important;
+}
+
+.notas-col {
+    max-width: 180px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Botón de eliminar estilizado */
+.btn-delete {
+    background: transparent !important;
+    border: 1px solid #444444 !important;
+    color: #a0a0a0 !important;
+    border-radius: 6px !important;
+    padding: 4px 10px !important;
+    cursor: pointer !important;
+    font-size: 12px !important;
+    transition: all .2s !important;
+}
+
+.btn-delete:hover {
+    background: rgba(255, 50, 50, 0.15) !important;
+    border-color: #ff4d4d !important;
+    color: #ff4d4d !important;
+}
+
+/* Badges para el tipo de entrenamiento */
+.badge {
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    background: #333333 !important;
+    color: #ffffff !important;
+    display: inline-block !important;
+}
+
+/* 🚨 FUERZA BRUTA PARA ELIMINAR EL CONTORNO BLANCO 🚨 */
+
+/* 1. Forzamos el contenedor directo de la tabla */
+.table-wrap {
+    background-color: #1e1e1e !important;
+    background: #1e1e1e !important;
+    border: 1px solid #2d2d2d !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* 2. Por si el contorno viene de la etiqueta <table> misma */
+.tabla {
+    background-color: #1e1e1e !important;
+    background: #1e1e1e !important;
+    border: none !important;
+}
+
+/* 3. BLINDAJE EXTRA: Atacamos cualquier caja que envuelva al historial en index.html */
+div[style*="background: white"],
+div[style*="background: #ffffff"],
+.seccion-tabla-bloque {
+    background: #1e1e1e !important;
+    background-color: #1e1e1e !important;
+    border-color: #2d2d2d !important;
+}

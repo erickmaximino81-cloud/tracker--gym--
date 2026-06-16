@@ -1,0 +1,67 @@
+/* ── static/componentes/estadisticas.css ────────────────── */
+
+.chart-section {
+    background: none;
+    padding: 0;
+}
+
+/* Tarjeta individual por ejercicio */
+.chart-card-dark {
+    background: #1e1e1e;
+    border: 1px solid #2d2d2d;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.chart-card-dark h3 {
+    margin: 0 0 16px 0;
+    font-size: 15px;
+    color: #e1ff00;
+    /* Texto Amarillo Neón */
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.bar-label {
+    width: 90px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: right;
+    color: #a0a0a0;
+    /* Gris atenuado */
+}
+
+/* El carril de fondo de la barra */
+.bar-track {
+    flex: 1;
+    background: #2a2a2a;
+    border-radius: 6px;
+    height: 28px;
+    overflow: hidden;
+    border: 1px solid #333333;
+}
+
+/* El relleno de la barra en color Neón */
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ccff00, #9ec400);
+    /* Gradiente neón */
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #000000;
+    /* Texto negro para que contraste con el amarillo brillante */
+    box-sizing: border-box;
+}

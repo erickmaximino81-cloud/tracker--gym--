@@ -1,0 +1,30 @@
+{# templates/componentes/estadisticas.html #}
+<div class="chart-section">
+    {% for nombre_ejercicio, series in lista_stats.items() %}
+    <div class="chart-card-dark">
+
+        <h3>{{ nombre_ejercicio }}</h3>
+
+        <div class="bar-chart">
+            {% for item in series %}
+            <div class="bar-row">
+
+                <span class="bar-label">{{ item['fecha'] }}</span>
+
+                <div class="bar-track">
+
+                    {% set porcentaje = (item['peso'] / 150 * 100)|round|int %}
+                    {% if porcentaje > 100 %}{% set porcentaje = 100 %}{% endif %}
+                    {% if porcentaje < 25 %}{% set porcentaje=25 %}{% endif %} <div class="bar-fill"
+                        style="width: {{ porcentaje ~ '%' }};">
+                        {{ item['peso'] }} kg x {{ item['repeticiones'] }} Reps
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endfor %}
+</div>

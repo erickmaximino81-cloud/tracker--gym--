@@ -1,0 +1,42 @@
+/* Puedes pegar esto en tu archivo CSS principal */
+.btn-progreso {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #e1ff00;
+    /* Azul moderno */
+    color: #070606;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Efecto al pasar el mouse por encima */
+.btn-progreso:hover {
+    background-color: #1d4ed8;
+    /* Azul más oscuro */
+    transform: translateY(-2px);
+    /* Se eleva sutilmente */
+}
+
+/* Efecto al hacer clic */
+.btn-progreso:active {
+    transform: translateY(0);
+    /* Vuelve a su posición original */
+}
+
+.btn-icono {
+    transition: transform 0.3s ease;
+}
+
+.btn-progreso:hover .btn-icono {
+    transform: rotate(90deg);
+    /* El icono gira al hacer hover */
+}

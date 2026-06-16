@@ -1,0 +1,53 @@
+{# templates/componentes/tabla_historial.html #}
+<div class="filter-bar">
+    <input type="text" id="buscar" placeholder="🔍 Buscar ejercicio o tipo..." oninput="filtrarTabla()" />
+</div>
+
+<div class="table-wrap">
+    <table class="tabla" id="tablaHistorial">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Ejercicio</th>
+                <th>Músculo</th>
+                <th>Dur.</th>
+                <th>Series×Reps</th>
+                <th>Peso</th>
+                <th>Cal.</th>
+                <th>RPE</th>
+                <th>Notas</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in registros %}
+            <tr>
+                <td>{{ r.fecha }}</td>
+                <td>
+                    <span class="badge badge-{{ (r.tipo or 'Fuerza').lower().replace(' / ','_').replace(' ','_') }}">
+                        {{ r.tipo or 'Fuerza' }}
+                    </span>
+                </td>
+                <td>{{ r.ejercicio }}</td>
+                <td>{{ r.musculo or '—' }}</td>
+                <td>{{ r.duracion }}min</td>
+                <td>{{ r.series or '1' }}×{{ r.repeticiones or '—' }}</td>
+                <td>{{ r.peso or '—' }}{% if r.peso %} kg{% endif %}</td>
+                <td>{{ r.calorias or '—' }}{% if r.calorias %} kcal{% endif %}</td>
+                <td><span class="rpe rpe-{{ r.esfuerzo or 5 }}">{{ r.esfuerzo or 5 }}/10</span></td>
+                <td class="notas-col">{{ r.notas or '—' }}</td>
+                <td>
+                    <form action="/eliminar/{{ r.id }}" method="POST" style="display:inline">
+                        <button type="submit" class="btn-delete" title="Eliminar">✕</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="11" class="empty-state">Sin registros aún. ¡A entrenar! 💪</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
