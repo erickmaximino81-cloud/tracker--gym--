@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GymTracker - Panel</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='componentes/boton.css') }}?v=10">
+    <link rel="stylesheet" href="{{ url_for('static', filename='componentes/campo_formulario.css') }}?v=10">
+    <link rel="stylesheet" href="{{ url_for('static', filename='componentes/estadisticas.css') }}?v=10">
+    <link rel="stylesheet" href="{{ url_for('static', filename='componentes/tabla_historial.css') }}?v=10">
+    <style>
+        /* ── PALETA DE COLORES NEÓN OSCURO ────────────────── */
+        :root {
+            --bg-body: #121212;
+            /* Fondo oscuro profundo de la app */
+            --surface: #1e1e1e;
+            /* Fondo de las tarjetas y bloques */
+            --border: #2d2d2d;
+            /* Bordes sutiles oscuros */
+            --accent: #e1ff00;
+            /* Amarillo Neón Principal */
+            --accent-hover: #b8cc00;
+            /* Amarillo Neón apagado para botones */
+            --text-main: #ffffff;
+            /* Texto blanco puro */
+            --text-dim: #a0a0a0;
+            /* Texto gris para descripciones */
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 24px;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* TARJETA DEL FORMULARIO ORIGINAL */
+        .card-formulario {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+        }
+
+        .card-formulario h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent);
+            /* Título en Neón */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* DISEÑO DE LAS ENTRADAS DE TEXTO EN MODO OSCURO */
+        select,
+        input[type="number"],
+        input[type="text"],
+        textarea,
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #252525;
+            color: var(--text-main);
+            font-family: inherit;
+        }
+
+        select:focus,
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            /* Brillo neón al dar clic */
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* CONTENEDOR DE GRÁFICAS Y HISTORIAL */
+        .seccion-graficas-bloque {
+            width: 100%;
+            max-width: 450px;
+            box-sizing: border-box;
+        }
+
+        .seccion-tabla-bloque {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+            background: var(--surface);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .seccion-tabla-bloque h2 {
+            color: var(--accent);
+            margin-top: 0;
+            text-transform: uppercase;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card-formulario">
+        <h2>Registrar Serie</h2>
+
+        <form action="/ejecutar-accion" method="POST" class="form-flex">
+            {% from 'componentes/campo_formulario.html' import campo %}
+
+            {% call campo("Fecha") %}
+            <input type="datetime-local" name="fecha" required>
+            {% endcall %}
+
+            <div class="form-row">
+                {% call campo("Tipo") %}
+                <select name="tipo">
+                    <option value="Fuerza">Fuerza</option>
+                    <option value="Cardio">Cardio</option>
+                    <option value="Flexibilidad">Flexibilidad</option>
+                    <option value="Funcional">Funcional</option>
+                </select>
+                {% endcall %}
+
+                {% call campo("Duración (min)") %}
+                <input type="number" name="duracion" placeholder="60" min="0">
+                {% endcall %}
+            </div>
+
+            {% call campo("Selecciona el Ejercicio") %}
+            <select name="ejercicio" required>
+                <option value="" disabled selected>-- Elige un ejercicio --</option>
+                <optgroup label="Pecho">
+                    <option value="Press de Banca">Press de Banca</option>
+                    <option value="Aperturas con Mancuerna">Aperturas con Mancuerna</option>
+                </optgroup>
+                <optgroup label="Pierna">
+                    <option value="Sentadilla con Barra">Sentadilla con Barra</option>
+                    <option value="Prensa de Piernas">Prensa de Piernas</option>
+                </optgroup>
+                <optgroup label="Espalda">
+                    <option value="Dominadas">Dominadas</option>
+                    <option value="Remo con Barra">Remo con Barra</option>
+                </optgroup>
+            </select>
+            {% endcall %}
+
+            {% call campo("Músculo Objetivo") %}
+            <select name="musculo">
+                <option value="General">General</option>
+                <option value="Pecho">Pecho</option>
+                <option value="Espalda">Espalda</option>
+                <option value="Pierna">Pierna</option>
+                <option value="Hombro">Hombro</option>
+                <option value="Brazo">Brazo</option>
+                <option value="Abdomen">Abdomen</option>
+            </select>
+            {% endcall %}
+
+            <div class="form-row">
+                {% call campo("Series Totales") %}
+                <input type="number" name="series" placeholder="4" min="1" value="1">
+                {% endcall %}
+
+                {% call campo("Repeticiones") %}
+                <input type="number" name="repeticiones" placeholder="10" min="1" required>
+                {% endcall %}
+            </div>
+
+            <div class="form-row">
+                {% call campo("Peso (kg)") %}
+                <input type="number" name="peso" placeholder="60" min="0" step="0.5" required>
+                {% endcall %}
+
+                {% call campo("Esfuerzo (RPE)") %}
+                <select name="esfuerzo">
+                    <option value="5">5/10 - Calentamiento</option>
+                    <option value="6">6/10 - Esfuerzo Ligero</option>
+                    <option value="7">7/10 - 3 Reps en reserva</option>
+                    <option value="8" selected>8/10 - 2 Reps en reserva</option>
+                    <option value="9">9/10 - 1 Rep en reserva</option>
+                    <option value="10">10/10 - Fallo Muscular</option>
+                </select>
+                {% endcall %}
+            </div>
+
+            {% call campo("Notas de la sesión") %}
+            <textarea name="notas" placeholder="Récords, cómo te sentiste..." rows="2"></textarea>
+            {% endcall %}
+
+            <div style="margin-top: 10px;">
+                {% include 'componentes/boton.html' %}
+            </div>
+        </form>
+    </div>
+
+    <div class="seccion-graficas-bloque">
+        {% include 'componentes/estadisticas.html' %}
+    </div>
+
+    <script>
+        // Fecha y hora local por defecto en formato compatible con datetime-local
+        const ahora = new Date();
+        ahora.setMinutes(ahora.getMinutes() - ahora.getTimezoneOffset());
+        document.querySelector('input[type="datetime-local"]').value = ahora.toISOString().slice(0, 16);
+    </script>
+
+    <div class="seccion-tabla-bloque">
+        <h2>Historial de Series</h2>
+        {% include 'componentes/tabla_historial.html' %}
+    </div>
+
+    <script src="{{ url_for('static', filename='componentes/tabla_historial.js') }}"></script>
+</body>
+
+</html>
