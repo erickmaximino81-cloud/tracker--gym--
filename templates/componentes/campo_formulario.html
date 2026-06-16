@@ -1,0 +1,18 @@
+{# COMPONENTE: Campo genérico de formulario (label + contenido)
+Uso:
+{% from 'campo_formulario/campo_formulario.html' import campo %}
+
+{% call campo("Duración (minutos)") %}
+<input type="number" name="duracion" placeholder="60" required />
+{% endcall %}
+
+{% call campo("Notas", full=true) %}
+<textarea name="notas"></textarea>
+{% endcall %}
+#}
+{% macro campo(label_text, full=false) %}
+<div class="form-group {{ 'full-width' if full else '' }}">
+    <label>{{ label_text }}</label>
+    {{ caller() }}
+</div>
+{% endmacro %}
